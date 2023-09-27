@@ -1,13 +1,17 @@
-## Music-Visualizer
-Visualizing various aspects of music: CQT, channel differences, spectrums, waves, power, and volumes.
+## Music-Visualizer: Only spectrum
+Modified by Niccolò Perego and Riccarto Di Palma, 28/9/2023
 
-[![An example of the visualization](/demo.gif)](https://www.youtube.com/watch?v=OXY-12lkqgE)
+Visualizing spectrum of music.
 
-### [Demo video](https://www.youtube.com/watch?v=OXY-12lkqgE).
+<!-- [![An example of the visualization](/demo.gif)](https://www.youtube.com/watch?v=OXY-12lkqgE)
+
+### [Demo video](https://www.youtube.com/watch?v=OXY-12lkqgE). -->
 
 ## How to install
 1. Download this repository and save it to your machine (e.g. ~/code/Music-Visualizer)
 2. Install [FFmpeg](https://ffmpeg.org/download.html) on your machine, if it is not already installed.
+
+If you are working on linux and in an environment with ffmpeg (for example if you have opencv in it), it most likely will be outdated and will cause an error over the drange parameter. To avoid this, install the most recent static version found <a href="https://johnvansickle.com/ffmpeg/">here</a> and follow this <a href="https://www.johnvansickle.com/ffmpeg/faq/">guide</a> for the installation. Then use the --ffmpeg argument when lauching the script to specify the updated version of ffmpeg, avoiding the one in the environment.
 
 ## Introductory usage
 - Take a look at all the available options
