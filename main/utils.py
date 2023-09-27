@@ -1,7 +1,7 @@
 import datetime
 import re
 import sys
-from typing import NoReturn
+from typing import NoReturn, Tuple
 
 
 def printer(__msg: str, /) -> None:
@@ -14,7 +14,7 @@ def error(__msg: str, /) -> NoReturn:
 def convert(hex):
     return hex.replace('#', '0x')
 
-def hex_to_rgb(hex: str, /) -> tuple[int, int, int]:
+def hex_to_rgb(hex: str, /) -> Tuple[int, int, int]:
     return tuple(
         int(hex[i:i + 2], 16)
         for i in (1, 3, 5)

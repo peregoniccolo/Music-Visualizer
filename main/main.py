@@ -48,47 +48,50 @@ def render(
     diff_color = f'rc={r1}:gc={g1}:bc={b1}:ac=255: rf={r2}:gf={g2}:bf={b2}:af=5'
 
     filter_complex = (
-        '[0:a]'
-            'showcqt='
-            's=800x360'
-            f': fps={r}'
-            f': sono_h=0'
-            f': bar_g={cqt_g}'
-            f': sono_g={cqt_g}'
-            f': bar_t={cqt_bar_t}'
-            f': bar_v={cqt_bar_v}'
-            f': sono_v=bar_v'
-            f': tc={cqt_tc}'
-            f': cscheme={cqt_color}'
-            f": fontfile='{cqt_notes_font}'"
-            f': fontcolor=0xF7EF8A'
+        # '[0:a]'
+        #     'showcqt='
+        #     's=800x360'
+        #     f': fps={r}'
+        #     f': sono_h=0'
+        #     f': bar_g={cqt_g}'
+        #     f': sono_g={cqt_g}'
+        #     f': bar_t={cqt_bar_t}'
+        #     f': bar_v={cqt_bar_v}'
+        #     f': sono_v=bar_v'
+        #     f': tc={cqt_tc}'
+        #     f': cscheme={cqt_color}'
+        #     f": fontfile='{cqt_notes_font}'"
+        #     f': fontcolor=0xF7EF8A'
 
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=CQT"
-        '[sc]'
+        #     f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=CQT"
+        # '[sc]'
 
-        '; [0:a]'
-            'avectorscope='
-            's=270x360'
-            f': r={r}'
-            f': draw=line'
-            f': scale=cbrt'
-            f': mirror=none'
-            f': {diff_color}'
+        # '; [0:a]'
+        #     'avectorscope='
+        #     's=270x360'
+        #     f': r={r}'
+        #     f': draw=line'
+        #     f': scale=cbrt'
+        #     f': mirror=none'
+        #     f': {diff_color}'
 
-            f', pad=454:360:92:0:black'
+        #     f', pad=454:360:92:0:black'
             
-            f", rotate='(PI/180)*{-90 + diff_rotate}'"
+        #     f", rotate='(PI/180)*{-90 + diff_rotate}'"
 
-            f', pad=456:360:1:0:{pad_color}'
+        #     f', pad=456:360:1:0:{pad_color}'
 
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Diff"
-        '[avs]'
+        #     f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Diff"
+        # '[avs]'
 
-        '; [sc][avs]hstack[up]'
+        # '; [sc][avs]hstack[up]'
 
-        '; [0:a]'
+        #'; [0:a]'
+        '[0:a]'
             'showspectrum='
             's=628x359'
+
+            f': drange={spec_drange}'
             f': slide=scroll'
             f': color={spec_color}'
             f': scale={spec_scale}'
@@ -96,66 +99,65 @@ def render(
             f': saturation={spec_saturation}'
             f': win_func={spec_win_func}'
             f': fps={r}'
-            f': drange={spec_drange}'
 
             f', pad=628:360:0:1:{pad_color}'
             
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Spectrum"
-        '[ss]'
+            #f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Spectrum"
+        # '[ss]'
 
-        '; [0:a]'
-            'showwaves='
-            's=626x179'
-            f': mode=p2p'
-            f': r={r}'
-            f': split_channels=1'
-            f': colors={waves_freqs_color_left}|{waves_freqs_color_right}'
-            f': draw=full'
+        # '; [0:a]'
+        #     'showwaves='
+        #     's=626x179'
+        #     f': mode=p2p'
+        #     f': r={r}'
+        #     f': split_channels=1'
+        #     f': colors={waves_freqs_color_left}|{waves_freqs_color_right}'
+        #     f': draw=full'
 
-            f', pad=628:180:1:1:{pad_color}'
+        #     f', pad=628:180:1:1:{pad_color}'
             
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Waves"
-        '[sw]'
+        #     f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Waves"
+        # '[sw]'
 
-        '; [0:a]'
-            'showfreqs='
-            's=626x179'
-            f': rate={r}'  #BUG: it looks like some versions of ffmpeg have this bug, comment out this line if your ffmpeg doesn't support this option
-            f': mode=line'
-            f': cmode=separate'
-            f': ascale=cbrt'
-            f': fscale=log'
-            f': win_func=gauss'
-            f': colors={waves_freqs_color_left}|{waves_freqs_color_right}'
+        # '; [0:a]'
+        #     'showfreqs='
+        #     's=626x179'
+        #     #f': rate={r}'  #BUG: it looks like some versions of ffmpeg have this bug, comment out this line if your ffmpeg doesn't support this option
+        #     f': mode=line'
+        #     f': cmode=separate'
+        #     f': ascale=cbrt'
+        #     f': fscale=log'
+        #     f': win_func=gauss'
+        #     f': colors={waves_freqs_color_left}|{waves_freqs_color_right}'
 
-            f', pad=628:180:1:1:{pad_color}'
+        #     f', pad=628:180:1:1:{pad_color}'
             
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Power"
-        '[sf]'
+        #     f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=5:y=5:fontsize=14:text=Power"
+        # '[sf]'
 
-        '; [sw][sf]vstack[down_right]'
-        '; [ss][down_right]hstack[down]'
-        '; [up][down]vstack[left]'
+        # '; [sw][sf]vstack[down_right]'
+        # '; [ss][down_right]hstack[down]'
+        # '; [up][down]vstack[left]'
 
-        '; [0:a]'
-            'showvolume='
-            f'r={r}'
-            f': b=0'
-            f': w=720'
-            f': h=12'
-            f': f=0'
-            f': c={vol_color}'
-            f': t=0'
-            f': v=0'
-            f': o=v'
-            f': dm=1'
-            f': dmc=0xb7d7f5'
+        # '; [0:a]'
+        #     'showvolume='
+        #     f'r={r}'
+        #     f': b=0'
+        #     f': w=720'
+        #     f': h=12'
+        #     f': f=0'
+        #     f': c={vol_color}'
+        #     f': t=0'
+        #     f': v=0'
+        #     f': o=v'
+        #     f': dm=1'
+        #     f': dmc=0xb7d7f5'
 
-            f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=2:y=5:fontsize=14:text=Vol"
-        '[right]'
+        #     f", drawtext=fontfile='{title_font}':fontcolor={title_color}:x=2:y=5:fontsize=14:text=Vol"
+        # '[right]'
 
-        '; [left][right]'
-            'hstack'
+        # '; [left][right]'
+        #     'hstack'
         '[out_v]'
     )
     code = sp.call([
