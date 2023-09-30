@@ -1,7 +1,6 @@
 import os
 import subprocess as sp
 
-from main.arg_parser import Args
 from main.utils import printer, hex_to_rgb
 
 
@@ -171,13 +170,15 @@ def render(
         *codec,
         '-c:a', 'copy',
         '-r', r,
-        output_file_pth
+        output_file_pth,
+        '-y' # overwrite without asking
     ])
     return code
 
 
 def main():
-
+    from main.arg_parser import Args
+    
     n_rendered = 0
 
     for idx, input in enumerate(Args.input):
@@ -185,8 +186,8 @@ def main():
         filename_base = os.path.splitext(filename)[0]
         output_file_pth = os.path.join(Args.output, f'{filename_base}.mp4')
         if os.path.exists(output_file_pth):
-            printer(f'WARNING: file already exists: {output_file_pth}')
-            continue
+            printer(f'WARNING: file already exists: {output_file_pth}, will be overwritten')
+            # continue
 
         printer(f'Rendering [{idx+1}/{len(Args.input)}] "{filename_base}"')
         code = render(
