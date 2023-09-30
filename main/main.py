@@ -184,7 +184,7 @@ def main():
     for idx, input in enumerate(Args.input):
         filename = os.path.basename(input)
         filename_base = os.path.splitext(filename)[0]
-        output_file_pth = os.path.join(Args.output, f'{filename_base}.mp4')
+        output_file_pth = os.path.join(Args.output, f'{filename_base}_spectr.mp4')
         if os.path.exists(output_file_pth):
             printer(f'WARNING: file already exists: {output_file_pth}, will be overwritten')
             # continue
