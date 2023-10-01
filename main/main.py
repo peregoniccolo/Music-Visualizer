@@ -1,5 +1,6 @@
 import os
 import subprocess as sp
+import sys
 
 from main.utils import printer, hex_to_rgb
 
@@ -159,20 +160,27 @@ def render(
         #     'hstack'
         '[out_v]'
     )
-    code = sp.call([
+    to_call = [
         ffmpeg_pth,
         '-v', 'error', '-stats',
         '-hwaccel', 'auto',
         '-i', music_file_pth,
         '-filter_complex', filter_complex,
         '-map', '[out_v]',
-        '-map', '0:a',
+        '-map', '0:a'
+    ]
+    if sys.platform == "darwin":
+        to_call += [
+            '-pix_fmt', 'yuv420p',
+        ]
+    to_call += [
         *codec,
         '-c:a', 'copy',
         '-r', r,
         output_file_pth,
         '-y' # overwrite without asking
-    ])
+    ]
+    code = sp.call(to_call)
     return code
 
 
